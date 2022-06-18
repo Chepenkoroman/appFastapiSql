@@ -12,31 +12,44 @@
 
 <body>
     <div style="margin-top: 50px;" class="ui container">
-        <h1 class="ui center aligned header">Duma</h1>
+        <h1 class="ui center aligned header">Приложение для просмотра текста выступлений в рамках заседаний Государственной Думы Российской Федерации (1994 - 2022)</h1>
 
-        <form class="ui form" action="/add" method="post">
+        <form class="ui form" action="/get_name" method="get">
             <div class="field">
-                <label>Duma speach</label>
-                <input type="text" name="speach" placeholder="Enter new speach"><br>
+                <label>Выступающий</label>
+                <input type="text" name="sp_name" placeholder="Введите фамилию выступающего"><br>
             </div>
-            <button class="ui blue button" type="submit">Add</button>
+            <button class="ui blue button" type="submit">Поиск по выступаюшему</button>
+        </form>
+
+        <hr>
+
+        <form class="ui form" action="/get_year" method="get">
+            <div class="field">
+                <label>Год</label>
+                <input type="text" name="year" placeholder="Введите год"><br>
+            </div>
+            <button class="ui blue button" type="submit">Поиск по году</button>
         </form>
 
         <hr>
 
         {% for todo in duma_list %}
-        <div class="ui segment">
-            <p class="ui big header">{{todo.id }} | {{ todo.speach }}</p>
-
-
-            <a class="ui red button" href="/delete/{{ todo.id }}">Delete</a>
+        <div class="ui segment"> 
+            <p class="ui huge header">{{ todo.name }}</p>
+            <p class="ui medium header right aligned" style="color:seagreen;">{{ todo.positive_prob }}</p>
+            <p class="ui medium header right aligned" style="color:Tomato;">{{ todo.negative_prob }}</p>
+            <p class="ui tiny">{{ todo.text }}  [ {{ todo.year }} год]</p>
+            <p class="ui tiny">Количество слов - {{ todo.text_w_length }}    |    Длина текста - {{ todo.text_length }}    |    Количество выступлений за год- {{ todo.performances }}</p>
+            <p class="ui tiny header">{{ todo.positive }}</p>
+            <a class="ui red button" href="/delete/{{ todo.id }}">Удалить</a>
         </div>
         {% endfor %}
 
         <hr>
 
         <a href="/easterEgg" target="_blank">
-            <button>Посхалка</button>
+            <button>Пасхалка</button>
         </a>
     </div>
 </body>
